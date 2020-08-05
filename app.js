@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(authUser)
 app.use(authRole)
 
-app.use(adminRoute)
-app.use(shopRote)
+app.use('/admin',adminRoute)
+app.use('/shop',shopRote)
 
 app.use((req, res, next) => {
     res.status(404).send('page not found')
