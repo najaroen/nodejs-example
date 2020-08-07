@@ -9,6 +9,7 @@ const adminRoute = require('./routes/admin');
 const shopRote = require('./routes/shop');
 const productRoute = require('./routes/product');
 
+const sequelize = require('./util/database-sequelize')
 const app = express();
 
 app.engine('hbs', expressHbs(
@@ -35,6 +36,14 @@ app.use((req, res, next) => {
     res.render('404', {title:'He'})
 });
 
-app.listen(3000, () => {
-    console.log(`running at port 3000`)
-})
+
+sequelize.sync()
+    .then((result) => {
+        // console.log('result', result);
+        app.listen(3000, () => {
+            console.log(`running at port 3000`)
+        })
+    })
+    .catch((error) => {
+        console.log('error', error)
+    })
